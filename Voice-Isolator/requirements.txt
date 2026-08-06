@@ -1,0 +1,4 @@
+sounddevice>=0.4.6
+numpy>=1.22,<2.0
+torch>=2.0
+deepfilternet==0.5.6
