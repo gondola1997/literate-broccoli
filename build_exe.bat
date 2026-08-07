@@ -31,6 +31,7 @@ pyinstaller --onefile --console --name VoiceIsolator ^
     --collect-all df ^
     --collect-all libdf ^
     --collect-all torch ^
+    --collect-all torchaudio ^
     --hidden-import sounddevice ^
     app.py
 
