@@ -88,6 +88,16 @@ class Pipeline(threading.Thread):
         # extra RAM/load time but keeps the streams fully independent.
         from df.enhance import init_df
 
+        # DeepFilterNet tries to log its own git commit hash/branch on
+        # startup by shelling out to `git`. On a machine without Git
+        # installed (true for most end users running the packaged exe),
+        # that raises FileNotFoundError, which the library only partially
+        # handles -- it crashes instead of just skipping the log line.
+        # Neuter those lookups; they're purely informational.
+        import df.logger as _df_logger
+        _df_logger.get_commit_hash = lambda: None
+        _df_logger.get_branch_name = lambda: None
+
         print(f"[{self.name}] Loading DeepFilterNet model...")
         self.model, self.df_state, _ = init_df(post_filter=post_filter)
         print(f"[{self.name}] Model ready.")
